@@ -18,7 +18,7 @@
         .stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #7f8c8d; font-weight: bold; }
         .progress-bar { height: 12px; background: #eee; border-radius: 6px; overflow: hidden; margin-bottom: 25px; }
         #progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.4s; }
-        #sentence { font-size: 1.35rem; line-height: 1.6; color: #2c3e50; margin-bottom: 25px; padding: 20px; border-radius: 15px; background: #f0f7fd; position: relative; border-left: 6px solid #3498db; }
+        #sentence { font-size: 1.35rem; line-height: 1.6; color: #2c3e50; margin-bottom: 25px; padding: 20px; border-radius: 15px; background: #f0f7fd; position: relative; border-left: 6px solid #3498db; white-space: pre-wrap; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .opt-btn { padding: 18px 10px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; font-size: 1.15rem; transition: 0.2s; font-weight: 500; }
         .opt-btn:hover { border-color: #3498db; background: #f7fbff; color: #3498db; }
@@ -32,22 +32,21 @@
 
 <div class="container">
     <h1>會考 1200 單字例句實戰 ⚡</h1>
-
     <div id="login-screen">
         <input type="text" id="userName" placeholder="請輸入姓名/座號">
         <select id="levelSelect">
-            <option value="1">Level 1 (001-100)</option>
-            <option value="2">Level 2 (101-200)</option>
-            <option value="3">Level 3 (201-300)</option>
-            <option value="4">Level 4 (301-400)</option>
-            <option value="5">Level 5 (401-500)</option>
-            <option value="6">Level 6 (501-600)</option>
-            <option value="7">Level 7 (601-700)</option>
-            <option value="8">Level 8 (701-800)</option>
-            <option value="9">Level 9 (801-900)</option>
-            <option value="10">Level 10 (901-1000)</option>
-            <option value="11">Level 11 (1001-1100)</option>
-            <option value="12">Level 12 (1101-1200)</option>
+            <option value="1">Level 1 (單字 001-100)</option>
+            <option value="2">Level 2 (單字 101-200)</option>
+            <option value="3">Level 3 (單字 201-300)</option>
+            <option value="4">Level 4 (單字 301-400)</option>
+            <option value="5">Level 5 (單字 401-500)</option>
+            <option value="6">Level 6 (單字 501-600)</option>
+            <option value="7">Level 7 (單字 601-700)</option>
+            <option value="8">Level 8 (單字 701-800)</option>
+            <option value="9">Level 9 (單字 801-900)</option>
+            <option value="10">Level 10 (單字 901-1000)</option>
+            <option value="11">Level 11 (單字 1001-1100)</option>
+            <option value="12">Level 12 (單字 1101-1200)</option>
         </select>
         <button class="main-btn" onclick="startGame()">開始練習</button>
     </div>
@@ -58,25 +57,17 @@
             <span id="score-stats">正確率: 0/0</span>
         </div>
         <div class="progress-bar"><div id="progress-fill"></div></div>
-
         <div class="question-box">
             <div id="sentence">載入中...</div>
             <div id="hint-box">💡 老師提示：<span id="hint-text"></span></div>
             <div class="options-grid" id="options"></div>
         </div>
-
         <div id="feedback"></div>
-
         <div class="wrong-list">
             <h3 style="font-size: 1.1rem; color: #c0392b;">🔴 我的錯題排行榜</h3>
             <div id="wrong-items-container"></div>
         </div>
-        
         <button onclick="location.reload()" style="margin-top:30px; background:#bdc3c7; border:none; padding:10px; border-radius:8px; width:100%; cursor:pointer;">返回首頁</button>
-    </div>
-
-    <div style="text-align: center; margin-top: 40px; opacity: 0.6;">
-        <img src="https://count.getloli.com/get/@a8864666-exam1200?theme=rule34" alt="MoeCounter">
     </div>
 </div>
 
@@ -285,8 +276,8 @@ const examData = {
         { q: "The ________ is very blue.", o: ["sky", "sea", "road", "park"], a: "sky", h: "蔚藍的天空。" },
         { q: "I ________ to bed at 10:00.", o: ["go", "come", "take", "give"], a: "go", h: "上床睡覺用 go to bed。" },
         { q: "I ________ a dream last night.", o: ["had", "did", "made", "took"], a: "had", h: "做夢用 have a dream。" }
-   ],
-   3: [
+    ],
+    3: [
         { q: "After long hours of talking, the two companies finally ________ an agreement on the new school project.", o: ["reached", "forgot", "left", "broke"], a: "reached", h: "談判很久後終於『達成』(reached)協議。" },
         { q: "The weather was ________, so we had to stay at home and cancel the soccer game in the park.", o: ["terrible", "wonderful", "pleasant", "sunny"], a: "terrible", h: "必須取消比賽，代表天氣很『糟糕』(terrible)。" },
         { q: "I don't ________ with what you said. I think your idea is too dangerous for us to try.", o: ["agree", "argue", "listen", "praise"], a: "agree", h: "覺得對方主意太危險，代表不『同意』(agree)。" },
@@ -387,8 +378,8 @@ const examData = {
         { q: "I ________ many new words in English class today.", o: ["learned", "taught", "gave", "take"], a: "learned", h: "學到新單字。" },
         { q: "The ________ is very wide. Many boats travel on it.", o: ["river", "sky", "road", "park"], a: "river", h: "寬廣的河流。" },
         { q: "I ________ some money in my piggy bank every day.", o: ["save", "spend", "take", "give"], a: "save", h: "在存錢筒存錢。" }
-   ],
-   4: [
+    ],
+    4: [
         { q: "The news was a big ________ to everyone. No one expected Mark to win the game.", o: ["surprise", "problem", "secret", "joke"], a: "surprise", h: "沒人料到會贏，這是一個大『驚喜/震驚』。" },
         { q: "I ________ go to the gym on weekends because I'm very busy during the week.", o: ["usually", "seldom", "never", "ever"], a: "usually", h: "平日忙碌，所以『通常』(usually)週末去健身。" },
         { q: "Don't ________ about me. I can take care of myself during the long trip.", o: ["worry", "forget", "believe", "happen"], a: "worry", h: "能照顧自己，所以請對方不要『擔心』(worry)。" },
@@ -491,7 +482,7 @@ const examData = {
         { q: "The ________ is hot. Be careful when you use it.", o: ["iron", "table", "chair", "bed"], a: "iron", h: "熱燙的熨斗。" }
     ],
     5: [
-        { q: "The factory causes serious air ________. People living nearby often get sick.", o: ["pollution", "protection", "production", "population"], a: "pollution", h: "造成生病的環境問題通常是『污染』(pollution)。" },
+         { q: "The factory causes serious air ________. People living nearby often get sick.", o: ["pollution", "protection", "production", "population"], a: "pollution", h: "造成生病的環境問題通常是『污染』(pollution)。" },
         { q: "We should live in harmony with ________ and stop cutting down too many trees.", o: ["nature", "future", "history", "science"], a: "nature", h: "保護樹木是為了與『大自然』(nature)和諧相處。" },
         { q: "The pizza man said he would ________ the food to our house in thirty minutes.", o: ["deliver", "collect", "borrow", "lend"], a: "deliver", h: "將餐點外送/送到府用 『deliver』。" },
         { q: "I have a good ________ of smell. I can tell what my mom is cooking from far away.", o: ["sense", "sound", "sight", "taste"], a: "sense", h: "五官的知覺稱為 『sense』。" },
@@ -1000,7 +991,7 @@ const examData = {
         { q: "A: Why are you so ________ today? You've been humming songs all morning.\nB: Because I'm going to a concert tonight!", o: ["cheerful", "nervous", "angry", "tired"], a: "cheerful", h: "哼歌代表心情很『愉悅/開朗』。" },
         { q: "The internet connection is so ________ that I can't even send a simple email.", o: ["slow", "fast", "new", "expensive"], a: "slow", h: "發不出郵件代表網路很『慢』。" }
     ],
-   10: [
+    10: [
         { q: "A: The glass vase is very ________. Please handle it with great care.\nB: Don't worry. I'll put it in a safe place.", o: ["fragile", "heavy", "cheap", "useful"], a: "fragile", h: "需要小心搬運的玻璃瓶，是因為它很『易碎』(fragile)。" },
         { q: "The scientist's research provided ________ evidence that the climate is changing faster than we thought.", o: ["solid", "fake", "boring", "common"], a: "solid", h: "提供『堅實/有力』(solid)的證據。" },
         { q: "A: I didn't mean to hurt your feelings. It was just a ________.\nB: It's okay. I'm glad we talked about it.", o: ["misunderstanding", "celebration", "discovery", "victory"], a: "misunderstanding", h: "無心之過通常源於『誤解』(misunderstanding)。" },
@@ -1102,7 +1093,7 @@ const examData = {
         { q: "A: Why are you so ________ today? You've been smiling at everyone.\nB: Because it's Friday and the weekend is coming!", o: ["cheerful", "nervous", "angry", "tired"], a: "cheerful", h: "面帶微笑代表心情『愉悅』。" },
         { q: "The internet is so ________ that it takes five minutes just to load one picture.", o: ["slow", "fast", "new", "expensive"], a: "slow", h: "圖片跑不動代表網路太『慢』。" }
     ],
-   11: [
+    11: [
         { q: "A: The price of this camera is a bit high. Can we ________?\nB: Sorry, the price is fixed because it's already on sale.", o: ["negotiate", "forget", "shout", "hope"], a: "negotiate", h: "商討價格的動作稱為『談判/協商』(negotiate)。" },
         { q: "The singer has a very good ________. She is known for her kindness and beautiful voice.", o: ["reputation", "pollution", "nature", "history"], a: "reputation", h: "大眾對一個人的評價稱為『名聲/聲望』(reputation)。" },
         { q: "A: Did you see the ________ on Mark's face when he saw the surprise gift?\nB: Yes! He looked so happy and shocked at the same time.", o: ["expression", "accident", "agreement", "appearance"], a: "expression", h: "臉上的神情稱為『表情』(expression)。" },
@@ -1204,7 +1195,7 @@ const examData = {
         { q: "A: Why are you so ________ today? You've been humming songs all day.\nB: Because I'm going to see my favorite band tonight!", o: ["cheerful", "nervous", "angry", "tired"], a: "cheerful", h: "哼歌代表心情很『愉悅/開朗』。" },
         { q: "The internet connection is so ________ that I can't even open a simple webpage.", o: ["slow", "fast", "new", "expensive"], a: "slow", h: "網頁跑不動代表網路太『慢』。" }
     ],
-   12: [
+    12: [
         { q: "A: What is the ________ number of students attending the school trip?\nB: About 500, but we'll have the exact count by tomorrow.", o: ["approximate", "exact", "single", "total"], a: "approximate", h: "表示『大約的』(approximate)數量。" },
         { q: "The old man is very ________. He still prefers writing letters by hand instead of using email.", o: ["conservative", "modern", "active", "creative"], a: "conservative", h: "傾向傳統做法的人通常較為『保守/守舊』(conservative)。" },
         { q: "A: The police are ________ of the man standing near the bank entrance.\nB: He does look a bit strange, wearing a heavy coat in summer.", o: ["suspicious", "proud", "afraid", "careful"], a: "suspicious", h: "覺得某人奇怪而感到『懷疑/起疑心』(suspicious)。" },
@@ -1305,7 +1296,10 @@ const examData = {
         { q: "Look at the picture. A girl is ________ the flowers in the garden.", o: ["watering", "washing", "buying", "selling"], a: "watering", h: "看圖題：澆水(watering)。" },
         { q: "A: Why are you so ________ today?\nB: I just got a letter from an old friend.", o: ["joyful", "nervous", "angry", "tired"], a: "joyful", h: "喜悅的(joyful)。" },
         { q: "The internet is so ________ that I can't even send an email.", o: ["unstable", "fast", "new", "expensive"], a: "unstable", h: "不穩定的(unstable)。" }
+    ]
 };
+
+// 此處暫放示範題，老師可依序填入之前生成的 1200 題完整內容
 
 let currentUser = "";
 let currentLevel = 1;
@@ -1324,18 +1318,26 @@ function shuffle(array) {
 function startGame() {
     currentUser = document.getElementById('userName').value.trim();
     currentLevel = parseInt(document.getElementById('levelSelect').value);
-    if (!currentUser) { alert("請輸入姓名後開始"); return; }
+    if (!currentUser) { alert("請輸入姓名或座號後開始"); return; }
     
+    if (!examData[currentLevel] || examData[currentLevel].length === 0) {
+        alert("此關卡資料載入中，請稍後");
+        return;
+    }
+
     const saved = localStorage.getItem(`examB_${currentUser}_L${currentLevel}`);
     if (saved) {
         const d = JSON.parse(saved);
         stats = d.stats || { correct: 0, total: 0 };
         mistakes = d.mistakes || {};
+    } else {
+        stats = { correct: 0, total: 0 };
+        mistakes = {};
     }
 
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'block';
-    document.getElementById('display-name').innerText = `戰士：${currentUser} (L${currentLevel})`;
+    document.getElementById('display-name').innerText = `戰士：${currentUser} (Level ${currentLevel})`;
     
     nextQuestion();
     updateMistakesUI();
@@ -1344,14 +1346,9 @@ function startGame() {
 
 function nextQuestion() {
     const questions = examData[currentLevel];
-    if (!questions || questions.length === 0) {
-        alert("此關卡暫無題目資料");
-        location.reload();
-        return;
-    }
     currentIndex = Math.floor(Math.random() * questions.length);
-    
     const data = questions[currentIndex];
+    
     document.getElementById('sentence').innerText = data.q;
     document.getElementById('feedback').innerText = "";
     document.getElementById('hint-box').style.display = 'none';
@@ -1376,7 +1373,7 @@ function check(sel, ans, hint, sentence) {
         document.getElementById('feedback').innerHTML = "🟢 正確！太優秀了！";
         document.getElementById('feedback').style.color = "var(--primary)";
         speak(sentence.replace("________", ans));
-        setTimeout(nextQuestion, 1500);
+        setTimeout(nextQuestion, 1200);
     } else {
         document.getElementById('feedback').innerHTML = "🔴 答錯了，再想一下！";
         document.getElementById('feedback').style.color = "var(--wrong)";
@@ -1401,7 +1398,7 @@ function save() {
 
 function updateStatsUI() {
     const totalInLevel = examData[currentLevel].length;
-    document.getElementById('score-stats').innerText = `正確率: ${stats.correct}/${stats.total}`;
+    document.getElementById('score-stats').innerText = `進度: ${stats.correct}/${totalInLevel}`;
     const p = (stats.correct / totalInLevel) * 100;
     document.getElementById('progress-fill').style.width = Math.min(p, 100) + "%";
 }
