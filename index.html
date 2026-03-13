@@ -633,7 +633,7 @@ const examData = {
         { q: "A: How ________ do you visit your grandparents in the countryside?\nB: Once a month.", o: ["often", "soon", "long", "far"], a: "often", h: "問頻率(一個月一次)用 How often。" },
         { q: "The ________ of the story is very sad. Everyone in my class cried.", o: ["ending", "beginning", "middle", "part"], a: "ending", h: "會讓人哭的通常是故事的『結局』。" },
         { q: "I found a ________ book in the library. It told me many things about the stars.", o: ["useful", "boring", "scary", "useless"], a: "useful", h: "能學到知識的書很『有用』(useful)。" },
-        { q: "I ________ a lot from the science class today. It was very interesting.", o: ["learned", "taught", "forgot", "lost"], a: "learned", h: "學生在課堂上獲取知識，用動詞『學習』(learned)。" }
+        { q: "I ________ a lot from the science class today. It was very interesting.", o: ["learned", "taught", "forgot", "lost"], a: "learned", h: "學生在課堂上獲取知識，用動詞『學習』(learned)。" },
         { q: "A: I've tried everything, but the radio still doesn't work.\nB: Why not take it to Mr. Wang? He is known for being able to ________ almost anything.", o: ["repair", "produce", "design", "invent"], a: "repair", h: "既然收音機壞了，找王先生通常是為了『修理』(repair)。" },
         { q: "The boss ________ the meeting because several important people were stuck in the snow and couldn't come.", o: ["postponed", "finished", "started", "continued"], a: "postponed", h: "有人因為大雪受阻，會議只好『延期』(postponed)。" },
         { q: "It is quite ________ that a small boy like him can play the piano so well. He must be a genius.", o: ["amazing", "terrible", "common", "boring"], a: "amazing", h: "年幼卻彈得極好，這是一件令人『驚奇的』(amazing)事。" },
@@ -1299,7 +1299,6 @@ const examData = {
     ]
 };
 
-// 此處暫放示範題，老師可依序填入之前生成的 1200 題完整內容
 
 let currentUser = "";
 let currentLevel = 1;
@@ -1355,7 +1354,7 @@ function nextQuestion() {
     
     const optsDiv = document.getElementById('options');
     optsDiv.innerHTML = "";
-    const shuffledOptions = shuffle([...data.o]); 
+    const shuffledOptions = shuffle([...data.o]);
     
     shuffledOptions.forEach(opt => {
         const btn = document.createElement('button');
