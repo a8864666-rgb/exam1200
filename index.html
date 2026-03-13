@@ -63,6 +63,9 @@
             <div class="options-grid" id="options"></div>
         </div>
         <div id="feedback"></div>
+        <button id="submit-btn" onclick="submitAndNext()" style="margin-top:20px; background:#3498db; color:white; border:none; padding:12px; border-radius:10px; width:100%; cursor:pointer; font-size:1rem;">
+            送出答案
+        </button>
         <div class="wrong-list">
             <h3 style="font-size: 1.1rem; color: #c0392b;">🔴 我的錯題排行榜</h3>
             <div id="wrong-items-container"></div>
@@ -1305,6 +1308,22 @@ let currentLevel = 1;
 let currentIndex = 0;
 let stats = { correct: 0, total: 0 };
 let mistakes = {};
+let selectedAnswer = null;
+let answerSubmitted = false;
+
+function selectAnswer(button, answer) {
+    if (answerSubmitted) return;
+
+    selectedAnswer = answer;
+
+    document.querySelectorAll('.opt-btn').forEach(b => {
+        b.style.background = "";
+        b.style.outline = "";
+    });
+
+    button.style.background = "#ffd966";
+    button.style.outline = "3px solid #f39c12";
+}
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -1328,7 +1347,6 @@ function startGame() {
         return;
     }
 
-    // 先給預設值，避免讀檔失敗時整個卡住
     stats = { correct: 0, total: 0 };
     mistakes = {};
 
@@ -1341,7 +1359,6 @@ function startGame() {
         }
     } catch (e) {
         console.error("讀取進度失敗：", e);
-        // 清掉壞掉的舊資料，避免之後一直卡住
         try {
             localStorage.removeItem(`examB_${currentUser}_L${currentLevel}`);
         } catch (_) {}
@@ -1357,43 +1374,73 @@ function startGame() {
 }
 
 function nextQuestion() {
+    speechSynthesis.cancel();
     const questions = examData[currentLevel];
     currentIndex = Math.floor(Math.random() * questions.length);
     const data = questions[currentIndex];
-    
+
+    selectedAnswer = null;
+    answerSubmitted = false;
+
     document.getElementById('sentence').innerText = data.q;
     document.getElementById('feedback').innerText = "";
     document.getElementById('hint-box').style.display = 'none';
-    
+    document.getElementById('submit-btn').innerText = "送出答案";
+
     const optsDiv = document.getElementById('options');
     optsDiv.innerHTML = "";
     const shuffledOptions = shuffle([...data.o]);
-    
+
     shuffledOptions.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'opt-btn';
         btn.innerText = opt;
-        btn.onclick = () => check(opt, data.a, data.h, data.q);
+        btn.onclick = () => selectAnswer(btn, opt);
         optsDiv.appendChild(btn);
     });
 }
 
+function submitAndNext() {
+    const data = examData[currentLevel][currentIndex];
+
+    if (!answerSubmitted) {
+        if (!selectedAnswer) {
+            alert("請先選擇答案");
+            return;
+        }
+
+        check(selectedAnswer, data.a, data.h, data.q);
+        answerSubmitted = true;
+        document.getElementById('submit-btn').innerText = "下一題";
+    } else {
+        // 停止上一題語音
+        speechSynthesis.cancel();
+
+        nextQuestion();
+    }
+}
+
 function check(sel, ans, hint, sentence) {
     stats.total++;
+
+    document.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.disabled = true;
+    });
+
     if (sel === ans) {
         stats.correct++;
-        document.getElementById('feedback').innerHTML = "🟢 正確！太優秀了！";
+        document.getElementById('feedback').innerHTML = "🟢 正確！請按「下一題」繼續";
         document.getElementById('feedback').style.color = "var(--primary)";
         speak(sentence.replace("________", ans));
-        setTimeout(nextQuestion, 1200);
     } else {
-        document.getElementById('feedback').innerHTML = "🔴 答錯了，再想一下！";
+        document.getElementById('feedback').innerHTML = `🔴 答錯了，正確答案是：${ans}。請按「下一題」繼續`;
         document.getElementById('feedback').style.color = "var(--wrong)";
         document.getElementById('hint-text').innerText = hint;
         document.getElementById('hint-box').style.display = 'block';
         mistakes[ans] = (mistakes[ans] || 0) + 1;
         updateMistakesUI();
     }
+
     save();
     updateStatsUI();
 }
