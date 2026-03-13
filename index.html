@@ -5,40 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會考英文 1200 單字例句挑戰</title>
     <style>
-        :root {
-            --primary: #2ecc71;
-            --wrong: #e74c3c;
-            --bg: #f9f9f9;
-        }
-        body { font-family: 'PingFang TC', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .container { width: 100%; max-width: 800px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #2c3e50; font-size: 1.5rem; margin-bottom: 20px; }
-        
-        /* 登入區 */
-        #login-screen { text-align: center; padding: 40px 0; }
-        input { padding: 12px; width: 80%; max-width: 300px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; margin-bottom: 20px; }
-        button { padding: 12px 30px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
-
-        /* 遊戲區 */
+        :root { --primary: #2ecc71; --wrong: #e74c3c; --bg: #f4f7f6; }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; margin: 0; }
+        .container { width: 100%; max-width: 600px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; font-size: 1.6rem; margin-bottom: 25px; }
+        #login-screen { text-align: center; padding: 30px 0; }
+        input { padding: 15px; width: 80%; border: 2px solid #ddd; border-radius: 12px; font-size: 1.1rem; margin-bottom: 20px; outline: none; }
+        select { padding: 12px; width: 88%; border-radius: 12px; border: 2px solid #ddd; font-size: 1rem; margin-bottom: 20px; }
+        button.main-btn { padding: 15px 40px; background: #3498db; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; width: 88%; }
+        button.main-btn:hover { background: #2980b9; transform: translateY(-2px); }
         #game-screen { display: none; }
-        .stats { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.9rem; color: #7f8c8d; }
-        .progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 20px; }
-        #progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
-        
-        /* 題目區 */
-        .question-box { margin-bottom: 30px; }
-        #sentence { font-size: 1.3rem; line-height: 1.6; color: #2c3e50; margin-bottom: 20px; padding: 15px; border-left: 5px solid #3498db; background: #f0f7fd; }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #7f8c8d; font-weight: bold; }
+        .progress-bar { height: 12px; background: #eee; border-radius: 6px; overflow: hidden; margin-bottom: 25px; }
+        #progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.4s; }
+        #sentence { font-size: 1.35rem; line-height: 1.6; color: #2c3e50; margin-bottom: 25px; padding: 20px; border-radius: 15px; background: #f0f7fd; position: relative; border-left: 6px solid #3498db; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .opt-btn { padding: 15px; border: 2px solid #eee; border-radius: 10px; background: white; cursor: pointer; font-size: 1.1rem; transition: 0.2s; text-align: center; }
-        .opt-btn:hover { border-color: #3498db; background: #f7fbff; }
-        
-        /* 提示與反饋 */
-        #feedback { text-align: center; font-weight: bold; margin-top: 15px; min-height: 24px; }
-        #hint-box { margin-top: 10px; font-size: 0.9rem; color: #e67e22; background: #fff3e0; padding: 10px; border-radius: 5px; display: none; }
-        
-        /* 排行榜 */
-        .wrong-list { margin-top: 40px; border-top: 2px solid #eee; padding-top: 20px; }
-        .wrong-item { display: flex; justify-content: space-between; color: var(--wrong); padding: 5px 0; font-size: 0.9rem; }
+        .opt-btn { padding: 18px 10px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; font-size: 1.15rem; transition: 0.2s; font-weight: 500; }
+        .opt-btn:hover { border-color: #3498db; background: #f7fbff; color: #3498db; }
+        #feedback { text-align: center; font-weight: bold; margin-top: 20px; font-size: 1.2rem; min-height: 30px; }
+        #hint-box { margin-top: 15px; font-size: 1rem; color: #d35400; background: #fff3e0; padding: 15px; border-radius: 10px; display: none; line-height: 1.5; }
+        .wrong-list { margin-top: 40px; border-top: 2px dashed #ddd; padding-top: 25px; }
+        .wrong-item { display: flex; justify-content: space-between; color: var(--wrong); padding: 8px 0; border-bottom: 1px solid #f9f9f9; }
     </style>
 </head>
 <body>
@@ -47,14 +34,12 @@
     <h1>會考 1200 單字例句實戰 ⚡</h1>
 
     <div id="login-screen">
-        <input type="text" id="userName" placeholder="請輸入姓名">
-        <br>
-        <select id="levelSelect" style="padding:10px; margin-bottom:20px; width:80%; max-width:325px; border-radius:8px; border:2px solid #ddd;">
-            <option value="1">Level 1 (單字 1-100)</option>
-            <option value="2">Level 2 (單字 101-200)</option>
-            </select>
-        <br>
-        <button onclick="startGame()">開始闖關</button>
+        <input type="text" id="userName" placeholder="請輸入姓名/座號">
+        <select id="levelSelect">
+            <option value="1">Level 1 (會考基礎單字 001-100)</option>
+            <option value="2">Level 2 (會考基礎單字 101-200)</option>
+        </select>
+        <button class="main-btn" onclick="startGame()">開始練習</button>
     </div>
 
     <div id="game-screen">
@@ -66,147 +51,142 @@
 
         <div class="question-box">
             <div id="sentence">載入中...</div>
-            <div id="hint-box">💡 提示：<span id="hint-text"></span></div>
+            <div id="hint-box">💡 老師提示：<span id="hint-text"></span></div>
             <div class="options-grid" id="options"></div>
         </div>
 
         <div id="feedback"></div>
 
         <div class="wrong-list">
-            <h3>魔王錯題本 (錯誤次數)</h3>
+            <h3 style="font-size: 1.1rem; color: #c0392b;">🔴 我的錯題排行榜</h3>
             <div id="wrong-items-container"></div>
         </div>
         
-        <button onclick="location.reload()" style="margin-top:20px; background:#95a5a6; width:100%;">返回主單單</button>
+        <button onclick="location.reload()" style="margin-top:30px; background:#bdc3c7; border:none; padding:10px; border-radius:8px; width:100%; cursor:pointer;">返回首頁</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; opacity: 0.6;">
+        <img src="https://count.getloli.com/get/@a8864666-exam1200?theme=rule34" alt="MoeCounter">
     </div>
 </div>
 
 <script>
-// --- 題目資料庫 (Level 1 範例，Level 2-12 後續補充) ---
 const examData = {
     1: [
-        { q: "The little girl is ________ of dogs. She runs away when she sees one.", o: ["afraid", "proud", "sure", "tired"], a: "afraid", h: "看到狗就跑走(runs away)，代表她很『害怕』。" },
-        { q: "The sun began to ________ after the rain, and we saw a rainbow.", o: ["appear", "change", "drop", "stop"], a: "appear", h: "雨後看到彩虹，代表太陽『出現』了。" },
-        { q: "Living near a station is ________. I can go anywhere easily.", o: ["convenient", "dangerous", "expensive", "serious"], a: "convenient", h: "去哪都很容易，代表生活很『方便』。" },
-        { q: "My mom is a good cook. Everything she makes is ________.", o: ["boring", "delicious", "heavy", "poor"], a: "delicious", h: "煮得好 (good cook) 等於東西『好吃』。" },
-        { q: "I don't have ________ money for that phone. I need to save more.", o: ["another", "both", "enough", "each"], a: "enough", h: "需要存更多錢，代表目前的錢不『夠』。" },
-        { q: "Health is the most ________ thing. Without it, we can't do anything.", o: ["boring", "common", "important", "simple"], a: "important", h: "生命中不可或缺的東西就是『重要』。" },
+        { q: "The little girl is ________ of dogs. She runs away when she sees one.", o: ["afraid", "proud", "sure", "tired"], a: "afraid", h: "看到狗就跑走(runs away)，代表內心很害怕。" },
+        { q: "The sun began to ________ after the rain, and we saw a rainbow.", o: ["appear", "change", "drop", "stop"], a: "appear", h: "下雨過後看到彩虹，代表太陽『出現』了。" },
+        { q: "Living near a station is ________. I can go anywhere easily.", o: ["convenient", "dangerous", "expensive", "serious"], a: "convenient", h: "去哪都很容易，代表生活非常『方便』。" },
+        { q: "My mom is a good cook. Everything she makes is ________.", o: ["boring", "delicious", "heavy", "poor"], a: "delicious", h: "媽媽很會煮(good cook)，所以晚餐吃起來很美味。" },
+        { q: "I don't have ________ money for that phone. I need to save more.", o: ["another", "both", "enough", "each"], a: "enough", h: "還需要存錢，代表目前的錢『不夠』。" },
+        { q: "Health is the most ________ thing. Without it, we can't do anything.", o: ["boring", "common", "important", "simple"], a: "important", h: "沒有它就不能做事，代表健康最『重要』。" },
         { q: "Mr. Chen is my ________. He lives in the house next to mine.", o: ["neighbor", "stranger", "teacher", "waiter"], a: "neighbor", h: "住在隔壁 (next to mine) 的人就是『鄰居』。" },
-        { q: "The wind is so ________ today that my hair keeps blowing in the air.", o: ["strong", "bright", "clear", "sweet"], a: "strong", h: "頭髮被吹動是因為風很『強』。" },
-        { q: "I ________ my wallet this morning, so I can't buy lunch now.", o: ["found", "lost", "kept", "sold"], a: "lost", h: "不能買午餐是因為『弄丟』了錢包。" },
-        { q: "I can't study with the ________. Can you turn off the TV?", o: ["noise", "heat", "light", "power"], a: "noise", h: "電視發出的聲音干擾讀書，稱為『噪音』。" }
-        // 老師，其餘 90 題我會分次提供，避免代碼過長
+        { q: "The wind is so ________ today that my hair keeps blowing in the air.", o: ["strong", "bright", "clear", "sweet"], a: "strong", h: "頭髮被吹亂是因為風很『強』。" },
+        { q: "I ________ my wallet this morning, so I can't buy lunch now.", o: ["found", "lost", "kept", "sold"], a: "lost", h: "沒錢買午餐是因為早上的時候『丟掉』了皮夾。" },
+        { q: "I can't study with the ________. Can you turn off the TV?", o: ["noise", "heat", "light", "power"], a: "noise", h: "電視發出的聲音干擾讀書，那種聲音叫噪音。" }
+    ],
+    2: [
+        { q: "I want to take a ________. I've worked for five hours.", o: ["break", "bus", "photo", "trip"], a: "break", h: "工作很久需要『休息』一下 (take a break)。" },
+        { q: "It is ________ to cross the road when the light is red.", o: ["dangerous", "exciting", "popular", "safe"], a: "dangerous", h: "闖紅燈是非常『危險』的行為。" },
+        { q: "We should ________ the earth by using less plastic.", o: ["protect", "change", "forget", "notice"], a: "protect", h: "減少使用塑膠是為了『保護』地球環境。" },
+        { q: "The soup smells ________. Did you put too much salt in it?", o: ["strange", "sweet", "fresh", "delicious"], a: "strange", h: "加了太多鹽，味道聞起來可能怪怪的 (strange)。" },
+        { q: "Don't forget to ________ the window before you leave the room.", o: ["close", "open", "break", "wash"], a: "close", h: "離開房間前要記得把窗戶『關上』。" }
     ]
 };
 
 let currentUser = "";
 let currentLevel = 1;
-let currentQuestions = [];
 let currentIndex = 0;
 let stats = { correct: 0, total: 0 };
 let mistakes = {};
 
 function startGame() {
     currentUser = document.getElementById('userName').value.trim();
-    currentLevel = document.getElementById('levelSelect').value;
-    if (!currentUser) return alert("請輸入姓名");
+    currentLevel = parseInt(document.getElementById('levelSelect').value);
+    if (!currentUser) { alert("請輸入姓名後開始"); return; }
     
-    // 讀取進度
-    const saved = localStorage.getItem(`exam_${currentUser}_L${currentLevel}`);
+    const saved = localStorage.getItem(`examB_${currentUser}_L${currentLevel}`);
     if (saved) {
-        const data = JSON.parse(saved);
-        stats = data.stats;
-        mistakes = data.mistakes;
+        const d = JSON.parse(saved);
+        stats = d.stats || { correct: 0, total: 0 };
+        mistakes = d.mistakes || {};
     }
 
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'block';
-    document.getElementById('display-name').innerText = `學生：${currentUser} (Level ${currentLevel})`;
+    document.getElementById('display-name').innerText = `戰士：${currentUser} (L${currentLevel})`;
     
-    currentQuestions = examData[currentLevel] || [];
     nextQuestion();
     updateMistakesUI();
+    updateStatsUI();
 }
 
 function nextQuestion() {
-    if (currentIndex >= currentQuestions.length) currentIndex = 0; // 循環練習
+    const questions = examData[currentLevel];
+    if (!questions) return;
+    currentIndex = Math.floor(Math.random() * questions.length);
     
-    const qData = currentQuestions[currentIndex];
-    document.getElementById('sentence').innerText = qData.q.replace("________", "______");
+    const data = questions[currentIndex];
+    document.getElementById('sentence').innerText = data.q;
     document.getElementById('feedback').innerText = "";
     document.getElementById('hint-box').style.display = 'none';
     
-    const optionsDiv = document.getElementById('options');
-    optionsDiv.innerHTML = "";
-    
-    qData.o.forEach(opt => {
+    const optsDiv = document.getElementById('options');
+    optsDiv.innerHTML = "";
+    data.o.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'opt-btn';
         btn.innerText = opt;
-        btn.onclick = () => checkAnswer(opt, qData.a, qData.h, qData.q);
-        optionsDiv.appendChild(btn);
+        btn.onclick = () => check(opt, data.a, data.h, data.q);
+        optsDiv.appendChild(btn);
     });
 }
 
-function checkAnswer(selected, correct, hint, fullSentence) {
+function check(sel, ans, hint, sentence) {
     stats.total++;
-    const feedback = document.getElementById('feedback');
-    const word = correct;
-
-    if (selected === correct) {
+    if (sel === ans) {
         stats.correct++;
-        feedback.innerText = "✅ 太棒了！";
-        feedback.style.color = "var(--primary)";
-        speak(fullSentence.replace("________", correct)); // 朗讀完整句子
-        setTimeout(() => {
-            currentIndex++;
-            nextQuestion();
-            saveProgress();
-        }, 1500);
+        document.getElementById('feedback').innerHTML = "🟢 正確！太優秀了！";
+        document.getElementById('feedback').style.color = "var(--primary)";
+        speak(sentence.replace("________", ans));
+        setTimeout(nextQuestion, 1500);
     } else {
-        feedback.innerText = "❌ 再試一次喔！";
-        feedback.style.color = "var(--wrong)";
+        document.getElementById('feedback').innerHTML = "🔴 答錯了，再想一下！";
+        document.getElementById('feedback').style.color = "var(--wrong)";
         document.getElementById('hint-text').innerText = hint;
         document.getElementById('hint-box').style.display = 'block';
-        
-        mistakes[word] = (mistakes[word] || 0) + 1;
-        saveProgress();
+        mistakes[ans] = (mistakes[ans] || 0) + 1;
         updateMistakesUI();
     }
+    save();
     updateStatsUI();
 }
 
 function speak(text) {
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = 'en-US';
-    msg.rate = 0.8;
-    window.speechSynthesis.speak(msg);
+    const m = new SpeechSynthesisUtterance(text);
+    m.lang = 'en-US'; m.rate = 0.8;
+    window.speechSynthesis.speak(m);
 }
 
-function saveProgress() {
-    const data = { stats, mistakes };
-    localStorage.setItem(`exam_${currentUser}_L${currentLevel}`, JSON.stringify(data));
+function save() {
+    localStorage.setItem(`examB_${currentUser}_L${currentLevel}`, JSON.stringify({stats, mistakes}));
 }
 
 function updateStatsUI() {
     document.getElementById('score-stats').innerText = `正確率: ${stats.correct}/${stats.total}`;
-    const progress = (stats.correct / currentQuestions.length) * 100;
-    document.getElementById('progress-fill').style.width = `${Math.min(progress, 100)}%`;
+    const p = (stats.correct / examData[currentLevel].length) * 100;
+    document.getElementById('progress-fill').style.width = Math.min(p, 100) + "%";
 }
 
 function updateMistakesUI() {
-    const container = document.getElementById('wrong-items-container');
-    container.innerHTML = "";
-    const sorted = Object.entries(mistakes).sort((a, b) => b[1] - a[1]);
-    
-    sorted.forEach(([word, count]) => {
-        const div = document.createElement('div');
-        div.className = 'wrong-item';
-        div.innerHTML = `<span>${word}</span><span>已錯 ${count} 次</span>`;
-        container.appendChild(div);
+    const c = document.getElementById('wrong-items-container');
+    c.innerHTML = "";
+    Object.entries(mistakes).sort((a,b)=>b[1]-a[1]).forEach(([w, n]) => {
+        const d = document.createElement('div');
+        d.className = 'wrong-item';
+        d.innerHTML = `<span>${w}</span><span>${n} 次</span>`;
+        c.appendChild(d);
     });
 }
 </script>
-
 </body>
 </html>
