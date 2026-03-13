@@ -36,8 +36,8 @@
     <div id="login-screen">
         <input type="text" id="userName" placeholder="請輸入姓名/座號">
         <select id="levelSelect">
-            <option value="1">Level 1 (會考基礎單字 001-100)</option>
-            <option value="2">Level 2 (會考基礎單字 101-200)</option>
+            <option value="1">Level 1 (單字 001-100)</option>
+            <option value="2">Level 2 (單字 101-200)</option>
         </select>
         <button class="main-btn" onclick="startGame()">開始練習</button>
     </div>
@@ -83,7 +83,99 @@ const examData = {
         { q: "The wind is so ________ today that my hair keeps blowing in the air.", o: ["strong", "bright", "clear", "sweet"], a: "strong", h: "頭髮被吹亂是因為風很『強』。" },
         { q: "I ________ my wallet this morning, so I can't buy lunch now.", o: ["found", "lost", "kept", "sold"], a: "lost", h: "沒錢買午餐是因為早上的時候『丟掉』了皮夾。" },
         { q: "I can't study with the ________. Can you turn off the TV?", o: ["noise", "heat", "light", "power"], a: "noise", h: "電視發出的聲音干擾讀書，那種聲音叫噪音。" }
+        { q: "I need to ________ some money from you to buy a ticket. I forgot my wallet.", o: ["borrow", "lend", "save", "spend"], a: "borrow", h: "忘了帶錢包，需要向別人『借入』(borrow)錢。" },
+        { q: "The soup is too ________. Please add some water into it.", o: ["salty", "sweet", "fresh", "cold"], a: "salty", h: "要加水稀釋，代表湯太『鹹』了。" },
+        { q: "My father is a ________. He drives a big truck every day.", o: ["driver", "doctor", "farmer", "waiter"], a: "driver", h: "每天開大卡車的人，職業是『司機』。" },
+        { q: "Don't be ________. Just tell us what you really think.", o: ["shy", "honest", "brave", "happy"], a: "shy", h: "不敢表達想法通常是因為『害羞』。" },
+        { q: "The exam was ________. Most students finished it in 20 minutes.", o: ["easy", "difficult", "special", "useful"], a: "easy", h: "很快就寫完，代表考試很『簡單』。" },
+        { q: "I like to read ________ books. I want to know about the past.", o: ["history", "art", "math", "science"], a: "history", h: "關於過去(the past)的知識是『歷史』。" },
+        { q: "Wait for me! You are walking too ________.", o: ["fast", "slowly", "quietly", "hard"], a: "fast", h: "追不上對方是因為對方走太『快』。" },
+        { q: "The water is too ________. Please wait for a few minutes before you drink it.", o: ["hot", "cold", "fresh", "sweet"], a: "hot", h: "要等一下再喝，通常是因為水太『燙』。" },
+        { q: "Be ________ when you cross the road. There are many cars.", o: ["careful", "lucky", "proud", "strong"], a: "careful", h: "車子很多，過馬路要『小心』。" },
+        { q: "I felt ________ after winning the race. My parents were happy for me.", o: ["proud", "afraid", "hungry", "tired"], a: "proud", h: "贏得比賽會感到『驕傲/光榮』。" },
+        { q: "The story is ________. I almost fell asleep when I was reading it.", o: ["boring", "exciting", "famous", "useful"], a: "boring", h: "讀到快睡著，代表故事很『無聊』。" },
+        { q: "We should ________ the environment. Let's not throw trash everywhere.", o: ["protect", "change", "forget", "notice"], a: "protect", h: "不亂丟垃圾是為了『保護』環境。" },
+        { q: "The teacher ________ the difficult math problem to the students.", o: ["explained", "shouted", "listened", "hoped"], a: "explained", h: "對學生『解釋』困難的問題。" },
+        { q: "I can't find my keys. I think I ________ them at home.", o: ["forgot", "left", "kept", "lost"], a: "left", h: "鑰匙沒帶出來，是『遺忘/留在』(left)家裡。" },
+        { q: "The movie was so ________ that I cried at the end.", o: ["sad", "funny", "boring", "short"], a: "sad", h: "會讓人哭(cried)的電影通常很『傷心』。" },
+        { q: "My little brother is very ________. He likes to ask many questions.", o: ["curious", "lazy", "quiet", "shy"], a: "curious", h: "愛問問題代表非常有『好奇心』。" },
+        { q: "The apple is so ________. I really like the taste.", o: ["sweet", "salty", "bitter", "sour"], a: "sweet", h: "好吃的蘋果通常很『甜』。" },
+        { q: "It is a ________ day. Let's go out and play basketball.", o: ["sunny", "rainy", "cloudy", "windy"], a: "sunny", h: "適合打球的天氣通常是『晴天』。" },
+        { q: "The box is too ________. I can't move it by myself.", o: ["heavy", "light", "small", "thin"], a: "heavy", h: "搬不動是因為東西太『重』。" },
+        { q: "I want to be a ________ in the future. I want to help sick people.", o: ["doctor", "driver", "farmer", "singer"], a: "doctor", h: "想幫助病人(sick people)的人，志願是當『醫生』。" },
+        { q: "The cake smells ________. I want to eat it now.", o: ["great", "strange", "bad", "poor"], a: "great", h: "聞起來很『棒』，所以想吃。" },
+        { q: "Please ________ the door quietly. The baby is sleeping.", o: ["close", "open", "break", "wash"], a: "close", h: "為了不吵醒寶寶，要輕輕地『關』門。" },
+        { q: "The dress is ________. I don't have enough money to buy it.", o: ["expensive", "cheap", "useful", "simple"], a: "expensive", h: "錢不夠買，代表這件衣服很『貴』。" },
+        { q: "The mountain is very ________. It's not easy to climb to the top.", o: ["high", "low", "flat", "short"], a: "high", h: "不容易爬到頂端，代表山很『高』。" },
+        { q: "I usually have ________ at 7:00 in the morning.", o: ["breakfast", "lunch", "dinner", "snack"], a: "breakfast", h: "早上七點吃的是『早餐』。" },
+        { q: "The knife is very ________. Be careful when you use it.", o: ["sharp", "heavy", "bright", "slow"], a: "sharp", h: "使用時要小心，代表刀子很『鋒利』。" },
+        { q: "The coffee is too ________. I need to add some sugar.", o: ["bitter", "sweet", "salty", "fresh"], a: "bitter", h: "需要加糖，代表咖啡太『苦』。" },
+        { q: "I'm so ________. I can eat a whole pizza by myself.", o: ["hungry", "thirsty", "tired", "bored"], a: "hungry", h: "能吃掉整個披薩，代表非常『餓』。" },
+        { q: "The music is too ________. Can you turn it down?", o: ["loud", "quiet", "sweet", "soft"], a: "loud", h: "要調小聲，是因為音樂太『大聲』。" },
+        { q: "My sister is a ________. She works in a hospital and helps doctors.", o: ["nurse", "teacher", "cook", "driver"], a: "nurse", h: "在醫院協助醫生的人是『護理師』。" },
+        { q: "It's ________ outside. You should put on a coat.", o: ["cold", "hot", "sunny", "warm"], a: "cold", h: "要穿大衣，是因為外面很『冷』。" },
+        { q: "The street is very ________. There are no cars or people.", o: ["quiet", "noisy", "busy", "crowded"], a: "quiet", "沒有車也沒有人，代表街道很『安靜』。" },
+        { q: "I like to ________ photos when I travel to different places.", o: ["take", "make", "give", "keep"], a: "take", h: "拍照的英文固定搭配是『take』photos。" },
+        { q: "The test was very ________. I only got 50 points.", o: ["difficult", "easy", "simple", "interesting"], a: "difficult", h: "分數很低，代表考試很『困難』。" },
+        { q: "My grandpa tells me a ________ every night before I go to bed.", o: ["story", "song", "joke", "news"], a: "story", h: "睡前會聽的是『故事』。" },
+        { q: "The flowers in the garden are very ________.", o: ["beautiful", "ugly", "boring", "noisy"], a: "beautiful", h: "花園裡的花通常很『漂亮』。" },
+        { q: "I'm very ________. I want to drink some water.", o: ["thirsty", "hungry", "tired", "sleepy"], a: "thirsty", h: "想喝水代表很『渴』。" },
+        { q: "Don't be ________. You can win the game if you try your best.", o: ["afraid", "happy", "excited", "proud"], a: "afraid", h: "鼓勵的話通常是叫人不要『害怕』。" },
+        { q: "The classroom is very ________. We should clean it now.", o: ["dirty", "clean", "bright", "large"], a: "dirty", h: "需要打掃代表教室很『髒』。" },
+        { q: "I have a ________. I need to see a dentist.", o: ["toothache", "headache", "fever", "cough"], a: "toothache", h: "看牙醫(dentist)是因為『牙痛』。" },
+        { q: "The sun is ________. It gives us light and heat.", o: ["bright", "dark", "cold", "small"], a: "bright", h: "太陽會提供光，所以非常『明亮』。" },
+        { q: "My mom bought some ________ and vegetables from the market.", o: ["fruit", "meat", "bread", "milk"], a: "fruit", h: "通常與蔬菜(vegetables)並稱的是『水果』。" },
+        { q: "The ________ of the house is very high. We can't buy it.", o: ["price", "color", "size", "height"], a: "price", h: "不能買是因為『價格』(price)太高。" },
+        { q: "I feel ________ because my best friend moved to another city.", o: ["lonely", "happy", "lucky", "excited"], a: "lonely", h: "好朋友搬走了會感到『孤單』。" },
+        { q: "The teacher is ________ with us because we didn't do our homework.", o: ["angry", "happy", "proud", "kind"], a: "angry", h: "沒寫作業會讓老師很『生氣』。" },
+        { q: "I need to ________ for the exam. It's very important.", o: ["study", "play", "sleep", "dance"], a: "study", h: "為了重要的考試要『研讀/讀書』。" },
+        { q: "The ________ is very strong. I can't open my eyes.", o: ["light", "wind", "sound", "rain"], a: "light", h: "強到睜不開眼，通常是指『光線』。" },
+        { q: "My ________ is very old. He is 80 years old.", o: ["grandfather", "father", "brother", "son"], a: "grandfather", h: "80歲的人在選項中應該是『祖父』。" },
+        { q: "The ________ is very delicious. I want another bowl.", o: ["soup", "water", "juice", "milk"], a: "soup", h: "用『碗』(bowl)裝的美味食物通常是『湯』。" },
+        { q: "I ________ a lot of time playing computer games every day.", o: ["spend", "take", "cost", "save"], a: "spend", h: "花時間在某事上，主詞是人時用『spend』。" },
+        { q: "The ________ is very blue today. There are no clouds.", o: ["sky", "sea", "river", "lake"], a: "sky", h: "沒有雲且藍藍的是『天空』。" },
+        { q: "I ________ to music when I am free.", o: ["listen", "hear", "see", "watch"], a: "listen", h: "聽音樂固定用『listen』to music。" },
+        { q: "The ________ is very cute. It has a long tail and likes to eat fish.", o: ["cat", "dog", "bird", "rabbit"], a: "cat", h: "有長尾巴且愛吃魚的是『貓』。" },
+        { q: "I have two ________. They are 10 and 12 years old.", o: ["sisters", "brothers", "friends", "teachers"], a: "sisters", h: "兩個人且符合年齡描述，選項中『姐妹』最合適。" },
+        { q: "The ________ is very high. I can't reach the book.", o: ["shelf", "table", "chair", "floor"], a: "shelf", h: "夠不到書，是因為『書架』(shelf)太高。" },
+        { q: "I ________ my homework after dinner every day.", o: ["do", "make", "take", "give"], a: "do", h: "做作業固定搭配是『do』homework。" },
+        { q: "The ________ is very fresh. Let's open the window.", o: ["air", "water", "food", "milk"], a: "air", h: "開窗是為了讓『空氣』流通。" },
+        { q: "I feel ________. I want to go to bed now.", o: ["sleepy", "hungry", "thirsty", "angry"], a: "sleepy", h: "想睡覺是因為感到『睏倦』。" },
+        { q: "The ________ is very long. It takes two hours to cross it.", o: ["bridge", "road", "street", "river"], a: "bridge", h: "要花兩小時跨越，代表這座『橋』很長。" },
+        { q: "I like to ________ in the sea during summer.", o: ["swim", "run", "jump", "dance"], a: "swim", h: "在海裡通常會做的運動是『游泳』。" },
+        { q: "The ________ is very beautiful. I want to buy it for my mom.", o: ["necklace", "shoe", "hat", "bag"], a: "necklace", h: "送給媽媽的精美首飾，『項鍊』(necklace)很合適。" },
+        { q: "I ________ a dream last night. It was very strange.", o: ["had", "did", "made", "took"], a: "had", h: "做夢固定搭配是『had』a dream。" },
+        { q: "The ________ is very green. Many people are playing there.", o: ["grass", "sky", "sea", "road"], a: "grass", h: "綠綠的且可以讓人玩耍的是『草地』。" },
+        { q: "I ________ my teeth twice a day.", o: ["brush", "wash", "clean", "cut"], a: "brush", h: "刷牙固定搭配是『brush』teeth。" },
+        { q: "The ________ is very smart. He can solve the problem quickly.", o: ["boy", "girl", "man", "woman"], a: "boy", h: "聰明且能快速解決問題的『男孩』。" },
+        { q: "I ________ a lot of water every day.", o: ["drink", "eat", "take", "give"], a: "drink", h: "喝水固定搭配是『drink』water。" },
+        { q: "The ________ is very large. There are many animals in it.", o: ["zoo", "park", "school", "hospital"], a: "zoo", h: "有很多動物的地方是『動物園』。" },
+        { q: "I ________ my mother a gift on her birthday.", o: ["gave", "took", "made", "kept"], a: "gave", h: "生日送禮物，動詞用『give』。" },
+        { q: "The ________ is very sweet. I like to eat it with bread.", o: ["jam", "salt", "pepper", "oil"], a: "jam", h: "甜甜的且配麵包吃的是『果醬』(jam)。" },
+        { q: "I ________ my father's car on Sundays.", o: ["wash", "brush", "clean", "cut"], a: "wash", h: "洗車固定搭配是『wash』the car。" },
+        { q: "The ________ is very hot. Be careful when you touch it.", o: ["stove", "table", "chair", "bed"], a: "stove", h: "摸到會燙的地方是『爐子』(stove)。" },
+        { q: "I ________ my sister's hand when we cross the road.", o: ["hold", "take", "give", "keep"], a: "hold", h: "過馬路會『牽/握』住手。" },
+        { q: "The ________ is very loud. It woke me up this morning.", o: ["alarm", "light", "wind", "rain"], a: "alarm", h: "會把人吵醒的大聲響是『鬧鐘』(alarm)。" },
+        { q: "I ________ my friend a secret yesterday.", o: ["told", "said", "spoke", "talked"], a: "told", h: "告訴某人秘密固定用『tell』someone a secret。" },
+        { q: "The ________ is very tall. It has many floors.", o: ["building", "house", "tree", "mountain"], a: "building", h: "有很多樓層(floors)的高大建物是『大樓』。" },
+        { q: "I ________ a lot of books from the library.", o: ["borrow", "lend", "save", "spend"], a: "borrow", h: "從圖書館『借入』書用 borrow。" },
+        { q: "The ________ is very cold. I need to wear a sweater.", o: ["weather", "water", "food", "milk"], a: "weather", h: "天氣冷要穿毛衣。" },
+        { q: "I ________ a lot of English words every day.", o: ["learn", "teach", "give", "take"], a: "learn", h: "每天『學習』單字。" },
+        { q: "The ________ is very beautiful. It is full of stars.", o: ["night", "day", "sky", "sea"], a: "night", h: "滿天星斗的景象是在『夜晚』。" },
+        { q: "I ________ a lot of sports to keep healthy.", o: ["do", "make", "take", "give"], a: "do", h: "做運動固定搭配常用『do』sports。" },
+        { q: "The ________ is very smart. It can follow my orders.", o: ["dog", "cat", "bird", "fish"], a: "dog", h: "會聽從指令的聰明動物通常是指『狗』。" },
+        { q: "I ________ my dinner with my family every day.", o: ["eat", "drink", "take", "give"], a: "eat", h: "每天跟家人一起『吃』晚餐。" },
+        { q: "The ________ is very blue. I want to swim in it.", o: ["ocean", "sky", "road", "park"], a: "ocean", h: "藍藍的且可以游泳的是『海洋』(ocean)。" },
+        { q: "I ________ my room every weekend.", o: ["clean", "wash", "brush", "cut"], a: "clean", h: "週末會『打掃/清理』房間。" },
+        { q: "The ________ is very funny. It makes me laugh.", o: ["joke", "story", "news", "song"], a: "joke", h: "會讓人笑(laugh)的是『笑話』。" },
+        { q: "I ________ a lot of money to buy a new computer.", o: ["saved", "spent", "took", "gave"], a: "saved", h: "為了買電腦而『存』錢。" },
+        { q: "The ________ is very fast. It can reach 300 km/h.", o: ["train", "bus", "bike", "car"], a: "train", h: "能達到300公里的極速工具通常指『高鐵/火車』。" },
+        { q: "I ________ my friend a birthday card last week.", o: ["sent", "took", "made", "kept"], a: "sent", h: "寄送生日卡片用『send』。" },
+        { q: "The ________ is very long. It takes 10 hours to fly to the USA.", o: ["flight", "road", "trip", "train"], a: "flight", h: "飛往美國要花10小時的是『航班』(flight)。" },
+        { q: "I ________ a lot of questions in class.", o: ["ask", "answer", "give", "take"], a: "ask", h: "在課堂上『提問』。"  }
     ],
+];
+    
     2: [
         { q: "I want to take a ________. I've worked for five hours.", o: ["break", "bus", "photo", "trip"], a: "break", h: "工作很久需要『休息』一下 (take a break)。" },
         { q: "It is ________ to cross the road when the light is red.", o: ["dangerous", "exciting", "popular", "safe"], a: "dangerous", h: "闖紅燈是非常『危險』的行為。" },
@@ -98,6 +190,15 @@ let currentLevel = 1;
 let currentIndex = 0;
 let stats = { correct: 0, total: 0 };
 let mistakes = {};
+
+// 洗牌函數：隨機打亂數組順序
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 function startGame() {
     currentUser = document.getElementById('userName').value.trim();
@@ -132,7 +233,11 @@ function nextQuestion() {
     
     const optsDiv = document.getElementById('options');
     optsDiv.innerHTML = "";
-    data.o.forEach(opt => {
+    
+    // --- 關鍵修改：先將選項複製一份並洗牌 ---
+    const shuffledOptions = shuffle([...data.o]); 
+    
+    shuffledOptions.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'opt-btn';
         btn.innerText = opt;
